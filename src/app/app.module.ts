@@ -6,13 +6,15 @@ import { AppComponent } from "./app.component";
 import { ClientesComponent } from "./clientes/clientes.component";
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
+import { NoFountComponent } from './no-fount/no-fount.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ClientesComponent
+    ClientesComponent,
+    NoFountComponent
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
