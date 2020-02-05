@@ -12,6 +12,7 @@ import swal from "sweetalert2"; // alertas
 export class FormComponent implements OnInit {
   titulo: string = "Crear Cliente";
   cliente: Cliente = new Cliente();
+  errores: string[];
 
   constructor(
     private clienteService: ClienteService,
@@ -35,26 +36,36 @@ export class FormComponent implements OnInit {
   }
 
   create(): void {
-    this.clienteService.create(this.cliente).subscribe((cliente: Cliente) => {
-      this.router.navigate(["/clientes"]);
-      swal.fire({
-        title: "Nuevo Cliente",
-        text: `Cliente ${cliente.nombre} creado con éxito`,
-        icon: "success",
-        confirmButtonText: "Aceptar"
-      });
-    });
+    this.clienteService.create(this.cliente).subscribe(
+      (response: any) => {
+        this.router.navigate(["/clientes"]);
+        swal.fire({
+          title: "Nuevo Cliente",
+          text: `Cliente ${response.cliente.nombre} creado con éxito`,
+          icon: "success",
+          confirmButtonText: "Aceptar"
+        });
+      },
+      err => {
+        this.errores = err.error.errors as string[];
+      }
+    );
   }
 
   update(): void {
-    this.clienteService.update(this.cliente).subscribe((cliente: Cliente) => {
-      this.router.navigate(["/clientes"]);
-      swal.fire({
-        title: "Cliente editado",
-        text: `Cliente ${cliente.nombre} actualizado con éxito`,
-        icon: "success",
-        confirmButtonText: "Aceptar"
-      });
-    });
+    this.clienteService.update(this.cliente).subscribe(
+      (response: any) => {
+        this.router.navigate(["/clientes"]);
+        swal.fire({
+          title: "Cliente editado",
+          text: `Cliente ${response.cliente.nombre} actualizado con éxito`,
+          icon: "success",
+          confirmButtonText: "Aceptar"
+        });
+      },
+      err => {
+        this.errores = err.error.errors as string[];
+      }
+    );
   }
 }

@@ -24,7 +24,7 @@ export class ClientesComponent implements OnInit {
       .fire({
         title: "¿Está segur@?",
         text: `¿Está seguro de querer eliminar al cliente ${cliente.nombre}?`,
-        icon: "warning",
+        icon: "question",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",

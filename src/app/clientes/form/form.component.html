@@ -1,18 +1,39 @@
+<!-- Lista de errores del backend -->
+<ul class="alert alert-danger" *ngIf="errores?.length > 0">
+  <li *ngFor="let err of errores">
+    {{ err }}
+  </li>
+</ul>
+
 <div style="padding-top: 10px;">
   <div class="card">
     <div class="card-header">{{ titulo }}</div>
     <div class="card-body">
-      <form>
+      <form #clienteForm="ngForm">
         <!-- Nombre -->
         <div class="form-group row">
           <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
           <div class="col-sm-6">
+            <!-- required minlength="4" -->
             <input
               type="text"
               class="form-control"
               [(ngModel)]="cliente.nombre"
               name="nombre"
+              #nombre="ngModel"
             />
+            <!-- Si existen errores en el frontEnd -->
+            <!-- <div
+              class="alert alert-danger"
+              *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
+            >
+              <div *ngIf="nombre.errors.required">
+                Nombre es requerido
+              </div>
+              <div *ngIf="nombre.errors.minlength">
+                Nombre debe tener al menos 4 caracteres
+              </div>
+            </div> -->
           </div>
         </div>
         <!-- Apellidio -->
@@ -24,7 +45,17 @@
               class="form-control"
               [(ngModel)]="cliente.apellido"
               name="apellido"
+              #apellido="ngModel"
             />
+            <!-- Si existen errores -->
+            <!-- <div
+              class="alert alert-danger"
+              *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)"
+            >
+              <div *ngIf="apellido.errors.required">
+                Apellido es requerido
+              </div>
+            </div> -->
           </div>
         </div>
         <!-- Email -->
@@ -36,7 +67,20 @@
               class="form-control"
               [(ngModel)]="cliente.email"
               name="email"
+              #email="ngModel"
             />
+            <!-- Si existen errores -->
+            <!-- <div
+              class="alert alert-danger"
+              *ngIf="email.invalid && (email.dirty || email.touched)"
+            >
+              <div *ngIf="email.errors.required">
+                Email es requerido
+              </div>
+              <div *ngIf="email.errors.email">
+                Email debe tener formato válido (Ejemplo: danicode@mail.com)
+              </div>
+            </div> -->
           </div>
         </div>
         <!--  -->
@@ -47,6 +91,7 @@
               class="btn btn-primary btn-block"
               role="button"
               (click)="create()"
+              [disabled]="!clienteForm.form.valid"
             >
               Crear
             </button>
@@ -56,6 +101,7 @@
                 class="btn btn-primary btn-block"
                 role="button"
                 (click)="update()"
+                [disabled]="!clienteForm.form.valid"
               >
                 Actualizar
               </button>
