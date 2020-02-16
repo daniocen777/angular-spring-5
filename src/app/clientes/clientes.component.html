@@ -1,5 +1,9 @@
+<detalle-cliente
+  *ngIf="clienteSeleccionado"
+  [cliente]="clienteSeleccionado"
+></detalle-cliente>
 <div>
-  <div class="card-body text-primary">
+  <div class="card-body text-primary mb-3">
     <h5 class="card-title">Listado de Clientes</h5>
     <!-- Crear cliente -->
     <div class="my-2 text-left">
@@ -19,7 +23,7 @@
     <table class="table table-hover" *ngIf="clientes?.length > 0">
       <thead>
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col">Perfil</th>
           <th scope="col">Nombre</th>
           <th scope="col">Apellido</th>
           <th scope="col">Email</th>
@@ -30,11 +34,29 @@
       </thead>
       <tbody>
         <tr *ngFor="let cliente of clientes">
-          <th scope="row">{{ cliente.id }}</th>
+          <td>
+            <img
+              *ngIf="cliente?.foto"
+              src="http://localhost:8080/api/uploads/img/{{ cliente.foto }}"
+              alt="{{ cliente.foto }}"
+              class="img-thumbnail rounded"
+              (click)="abrirModal(cliente)"
+              style="width: 64px; cursor: pointer;"
+            />
+            <!-- Si no tiene imagen asociada -->
+            <img
+              *ngIf="!cliente?.foto"
+              src="http://localhost:8080/images/no_image.png"
+              alt="Sin foto"
+              class="img-thumbnail rounded"
+              (click)="abrirModal(cliente)"
+              style="width: 64px; cursor: pointer;"
+            />
+          </td>
           <td>{{ cliente.nombre }}</td>
           <td>{{ cliente.apellido | uppercase }}</td>
           <td>{{ cliente.email }}</td>
-          <td>{{ cliente.createAt | date:"EEEE dd, MMMM yyyy" }}</td>
+          <td>{{ cliente.createAt | date: "EEEE dd, MMMM yyyy" }}</td>
           <td>
             <button
               class="btn btn-warning btn-sm"
@@ -58,5 +80,7 @@
         </tr>
       </tbody>
     </table>
+    <!-- Paginador -->
+    <app-paginator *ngIf="paginador" [paginador]="paginador"></app-paginator>
   </div>
 </div>

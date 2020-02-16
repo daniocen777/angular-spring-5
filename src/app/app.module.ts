@@ -13,6 +13,8 @@ import { FormComponent } from "./clientes/form/form.component";
 
 import localeES from "@angular/common/locales/es"; // idioma
 import { registerLocaleData } from "@angular/common";
+import { PaginatorComponent } from './components/paginator/paginator.component';
+import { DetalleComponent } from './clientes/detalle/detalle.component';
 
 // INternacionalización
 registerLocaleData(localeES, "es");
@@ -24,7 +26,9 @@ registerLocaleData(localeES, "es");
     FooterComponent,
     ClientesComponent,
     NoFountComponent,
-    FormComponent
+    FormComponent,
+    PaginatorComponent,
+    DetalleComponent
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [{provide: LOCALE_ID, useValue: 'es' }],
